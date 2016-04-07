@@ -1,0 +1,3 @@
+GET         /books/:id                    controllers.BooksController.get(id: Int)
+GET         /books                        controllers.BooksController.list
+POST        /books/:id/updateTitle        controllers.BooksController.updateTitle(id: Int)
