@@ -39,5 +39,5 @@ lazy val reader = (project in file("reader")).
   settings(commonSettings: _*).
   settings(
     name := "play-reader",
-    libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.0"
+    libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.2"
   ).enablePlugins(PlayScala)
