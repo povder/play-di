@@ -1,18 +1,16 @@
 package services
 
 import model.Book
-import play.api.cache.CacheApi
 
 import scala.collection.mutable
-import scala.concurrent.duration._
 
-object BooksService {
+object BSTypes {
   type BSlist = () => Seq[Book]
   type BSget = Int => Option[Book]
   type BSsave = Book => Unit
 }
 
-import BooksService._
+import BSTypes._
 case class BooksService(list: BSlist, get: BSget, save: BSsave)
 
 object DBBooksService {
