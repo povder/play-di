@@ -4,7 +4,7 @@ import main.Supervisor
 import services._
 import model.Book
 
-import javax.inject.{Inject, Named}
+import javax.inject.Inject
 
 import akka.actor.ActorSystem
 import akka.pattern.ask
@@ -26,21 +26,23 @@ class BooksController @Inject()(system: ActorSystem) extends Controller {
         Ok(Json.toJson(book))
       case _ =>
         NotFound
-    }
+    } recoverWith { case _ => Future(ServiceUnavailable) }
   }
 
   def list = Action.async {
     (booksService ? BSList) map {
-      case books: Seq[Book @unchecked] => Ok(Json.toJson(books))
-    }
+      case books: Seq[Book @unchecked] =>
+        Ok(Json.toJson(books))
+    } recoverWith { case _ => Future(ServiceUnavailable) }
   }
 
   def updateTitle(id: Int) = Action.async(parse.text) { request =>
-    (booksService ? BSGet(id)) flatMap { case Some(book: Book) =>
-      val updatedBook = book.copy(title = request.body)
-      (booksService ? BSSave(updatedBook)) map {
-        case _ => NoContent
-      }
-    }
+    (booksService ? BSGet(id)) flatMap {
+      case Some(book: Book) =>
+        val updatedBook = book.copy(title = request.body)
+        (booksService ? BSSave(updatedBook)) map {
+          case _ => NoContent
+        }
+    } recoverWith { case _ => Future(ServiceUnavailable) }
   }
 }
