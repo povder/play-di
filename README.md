@@ -4,3 +4,4 @@ This is example code for the following blog post: http://www.schibsted.pl/2016/0
 
 Following samples are not (yet?) covered by the blog post:
  - functional
+ - akka
