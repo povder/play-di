@@ -47,3 +47,9 @@ lazy val functional = (project in file("functional")).
   settings(
     name := "play-functional"
   ).enablePlugins(PlayScala)
+
+lazy val akka = (project in file("akka")).
+  settings(commonSettings: _*).
+  settings(
+    name := "play-akka"
+  ).enablePlugins(PlayScala)
