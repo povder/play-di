@@ -4,8 +4,10 @@ import javax.inject.Inject
 
 import model.Book
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Action, Controller, Result}
 import services.BooksService
+
+import scalaz._
 
 class BooksController @Inject()(booksService: BooksService) extends Controller {
 
@@ -23,12 +25,10 @@ class BooksController @Inject()(booksService: BooksService) extends Controller {
   }
 
   def updateTitle(id: Int) = Action(parse.text) { request =>
-    Book.get(id).map {
-      case Some(book) =>
-        book.copy(title = request.body).save()
-        NoContent
+    Book.get(id).flatMap {
+      case Some(book) => book.copy(title = request.body).save().map(_ => NoContent)
 
-      case None => NotFound
+      case None => Reader[BooksService, Result](_ => NotFound)
     }.run(booksService)
   }
 }
