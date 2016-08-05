@@ -1,4 +1,6 @@
-target
+/target
+/*/target
 *.iml
 .idea
-*.log
+/*/logs
+/project/project
