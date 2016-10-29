@@ -26,7 +26,7 @@ lazy val macwire = (project in file("macwire")).
   settings(commonSettings: _*).
   settings(
     name := "play-macwire",
-    libraryDependencies += "com.softwaremill.macwire" %% "macros" % "2.2.2" % "provided"
+    libraryDependencies += "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
   ).enablePlugins(PlayScala)
 
 lazy val manual = (project in file("manual")).
@@ -39,7 +39,7 @@ lazy val reader = (project in file("reader")).
   settings(commonSettings: _*).
   settings(
     name := "play-reader",
-    libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.2"
+    libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.7"
   ).enablePlugins(PlayScala)
 
 lazy val functional = (project in file("functional")).
